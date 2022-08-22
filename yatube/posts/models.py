@@ -12,7 +12,6 @@ class Group(models.Model):
 
 
 User = get_user_model()
-# Create your models here.
 
 
 class Post(models.Model):
@@ -23,10 +22,13 @@ class Post(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='posts'
+        related_name='group'
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='posts'
     )
+
+    class Meta:
+        ordering = ["-pub_date"]

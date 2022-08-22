@@ -1,14 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Group, Post
 
-# Create your views here.
-
-# Главная страница
-POSTS_NUM = 10
+POSTS_NUM: int = 10
 
 
 def index(request):
-    posts = Post.objects.order_by('-pub_date')[:POSTS_NUM]
+    posts = Post.objects.select_related('author', 'group').all()[:POSTS_NUM]
     title = 'Последние обновления на сайте'
     context = {
         'posts': posts,
